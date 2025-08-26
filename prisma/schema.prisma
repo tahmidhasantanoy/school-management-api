@@ -6,10 +6,49 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String  @id @default(uuid())
+  name         String
+  email        String  @unique
+  passwordHash String
+  role         Role    @default(student)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  // Relation with Student and Class
+  student      Student?
+}
+
+model Class {
+  id       String   @id @default(uuid())
+  name     String
+  section  String
+  // Relation with Student and Class
+  students Student[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Student {
+  id        String   @id @default(uuid())
+  name      String
+  age       Int
+  classId   String? 
+  class     Class?   @relation(fields: [classId], references: [id])
+  userId    String?  @unique
+  user      User?    @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  admin
+  teacher
+  student
 }
