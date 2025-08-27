@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import classService from "./class.service";
+import { EnrollDto } from "./class.dto";
 
 const getClassList = async (
   req: Request,
@@ -24,7 +25,25 @@ const createClass = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const enrollAStudent = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const dto = (req as any).validated as { studentId: string };
+    const student = await classService.enrollAStudent(
+      req.params.id,
+      dto.studentId
+    );
+    res.json({ message: "Enrolled", student });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getClassList,
   createClass,
+  enrollAStudent,
 };

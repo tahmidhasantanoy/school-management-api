@@ -10,7 +10,18 @@ const createClass = (data: { name: string }) => {
   return result;
 };
 
+const enrollAStudent = async (classId: string, studentId: string) => {
+  // simple one-to-many: set student's classId
+  const student = await prisma.student.update({
+    where: { id: studentId },
+    data: { classId },
+    include: { class: true },
+  });
+  return student;
+};
+
 export default {
   createClass,
   getClassList,
+  enrollAStudent
 };
