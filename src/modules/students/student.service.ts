@@ -5,10 +5,7 @@ const createStudent = (data: {
   age: number;
   classId?: string;
 }) => {
-
-//   const result = prisma.student.create({ data });
-  const result : String = 'test'
-  console.log(result);
+  const result = prisma.student.create({ data });
   return result;
 };
 
