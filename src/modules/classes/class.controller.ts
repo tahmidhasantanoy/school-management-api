@@ -25,6 +25,7 @@ const createClass = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+// Enroll Specific student to specific class
 const enrollAStudent = async (
   req: Request,
   res: Response,
@@ -42,8 +43,15 @@ const enrollAStudent = async (
   }
 };
 
+const allStudents = async (req: Request, res: Response) => {
+    const students = await classService.allStudents(req.params.id);
+    res.json(students);
+  }
+
+
 export default {
   getClassList,
   createClass,
   enrollAStudent,
+  allStudents
 };

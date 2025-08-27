@@ -20,8 +20,14 @@ const enrollAStudent = async (classId: string, studentId: string) => {
   return student;
 };
 
+const allStudents = (classId: string) => {
+  const result = prisma.student.findMany({ where: { classId } });
+  return result;
+};
+
 export default {
   createClass,
   getClassList,
-  enrollAStudent
+  enrollAStudent,
+  allStudents
 };

@@ -8,9 +8,9 @@ import classController  from "./class.controller";
 const route = Router();
 
 // Routes
-// route.get("/");
 route.post("/",auth,allowRoles("admin"),validateBody(CreateClassDto),classController.createClass
 );
 route.post('/:id/enroll', auth, allowRoles('admin','teacher'), validateBody(EnrollDto), classController.enrollAStudent);
+route.get('/:id/students', auth, allowRoles('admin','teacher'), classController.allStudents);
 
 export default route;
