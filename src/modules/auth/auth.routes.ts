@@ -7,5 +7,6 @@ const route = Router();
 
 route.post("/signup", validateBody(SignupDto), authController.signup);
 route.post("/refresh", validateBody(RefreshDto), authController.refresh);
+route.post("/login", validateBody(LoginDto), authController.login);
 
 export default route;

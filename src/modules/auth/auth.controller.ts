@@ -19,7 +19,6 @@ export const authController = {
     res.status(201).json(result);
   },
 
-
   refresh: async (req: Request, res: Response) => {
     const dto = (req as any).validated as { token: string };
     try {
@@ -29,5 +28,11 @@ export const authController = {
     } catch {
       res.status(401).json({ message: "Invalid or expired refresh token" });
     }
+  },
+
+    login: async (req: Request, res: Response) => {
+    const dto = (req as any).validated as { email: string; password: string };
+    const result = await authService.login(dto);
+    res.json(result);
   },
 };

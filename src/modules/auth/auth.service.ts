@@ -14,7 +14,7 @@ export const authService = {
     });
 
     if (exists) {
-      console.log('i am in  exists'); // working
+      console.log("i am in  exists"); // working
       throw { status: 400, message: "Email already in use" };
     }
 
@@ -41,7 +41,6 @@ export const authService = {
     };
   },
 
-
   async refresh(token: string) {
     // trust is verified in controller; re-issue pair by reading token payload again
     const jwt = await import("jsonwebtoken");
@@ -51,6 +50,28 @@ export const authService = {
 
     const payload = { sub: decoded.sub, role: decoded.role };
     return {
+      accessToken: signAccessToken(payload),
+      refreshToken: signRefreshToken(payload),
+    };
+  },
+
+  async login(data: { email: string; password: string }) {
+    
+    const user = await prisma.user.findUnique({ where: { email: data.email } });
+    if (!user) throw { status: 401, message: "Invalid credentials" };
+    const authenticUser = await bcrypt.compare(data.password, user.passwordHash);
+    if (!authenticUser) throw { status: 401, message: "Invalid credentials" };
+
+    const payload = { sub: user.id, role: user.role };
+    return {
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+
+      // token based on database data
       accessToken: signAccessToken(payload),
       refreshToken: signRefreshToken(payload),
     };
