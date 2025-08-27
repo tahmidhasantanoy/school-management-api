@@ -13,8 +13,6 @@ app.use(express.json());
 app.use(cors());
 app.use(helmet());
 
-// Health
-app.get("/health", (_req, res) => res.json({ ok: true }));
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   const status = err.status || 500;
