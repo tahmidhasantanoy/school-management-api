@@ -14,8 +14,16 @@ const studentList = () => {
   return result;
 };
 
+const getStudentById = (id: string) => {
+  const result = prisma.student.findUnique({
+    where: { id },
+    include: { class: true },
+  });
+  return result;
+};
 
 export default {
   createStudent,
   studentList,
+  getStudentById,
 };

@@ -24,7 +24,14 @@ const studentList = async (req: Request, res: Response) => {
   res.json(data);
 };
 
+const getStudentById = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const student = await studentService.getStudentById(id);
+  res.json(student);
+};
+
 export default {
   createStudent,
   studentList,
+  getStudentById
 };
