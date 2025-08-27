@@ -19,6 +19,12 @@ const createStudent = async (
   }
 };
 
+const studentList = async (req: Request, res: Response) => {
+  const data = await studentService.studentList();
+  res.json(data);
+};
+
 export default {
   createStudent,
+  studentList,
 };

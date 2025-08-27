@@ -9,6 +9,13 @@ const createStudent = (data: {
   return result;
 };
 
+const studentList = () => {
+  const result = prisma.student.findMany({ include: { class: true } });
+  return result;
+};
+
+
 export default {
   createStudent,
+  studentList,
 };

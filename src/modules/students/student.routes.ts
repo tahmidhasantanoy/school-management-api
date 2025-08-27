@@ -14,5 +14,6 @@ route.post(
   validateBody(CreateStudentDto),
   studentController.createStudent
 );
+route.get('/', auth, allowRoles('admin','teacher'), studentController.studentList);
 
 export default route;
