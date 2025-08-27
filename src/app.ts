@@ -3,6 +3,7 @@ import cors from "cors";
 import helmet from "helmet";
 import authRoutes from "./modules/auth/auth.routes";
 import studentRoutes from "./modules/students/student.routes";
+import classRoutes from "./modules/classes/class.routes";
 import errorHandler from "./middlewares/errorHandler";
 
 const app = express();
@@ -24,6 +25,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 //Routes
 app.use("/auth", authRoutes);
 app.use("/students", studentRoutes);
+app.use("/classes", classRoutes);
 
 // Middlewares run when handle requests or throw error, for that case this is in bottom
 app.use(errorHandler);
