@@ -13,6 +13,7 @@ import { RequestHandler } from "express";
 
 export function validateBody<T>(dtoClass: new () => T): RequestHandler {
   return async (req, res, next) => {
+ 
     const instance = plainToInstance(dtoClass, req.body);
     const errors = await validate(instance, {
       whitelist: true,

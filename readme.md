@@ -1,1 +1,0 @@
-### compile problem : when build then the update ts convert to js
